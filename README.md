@@ -5,4 +5,11 @@
 
 Бэкенд расположен в директории `backend/`, а фронтенд - в `frontend/`. 
   
-Ссылка на сайт, размещенный на Яндекс.Облаке - https://silentvampr.nomoredomains.work
+*Ссылки на сайт, размещенный на Яндекс.Облаке*
+
+Фронтенд:
+- https://silentvampr.nomoredomains.work
+- http://silentvampr.nomoredomains.work
+
+Бэкенд:
+- http://51.250.29.22
