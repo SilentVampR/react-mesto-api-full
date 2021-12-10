@@ -2,9 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+const helmet = require('helmet');
+
+const { corsConfig } = require('./middlewares/corsconfig');
 
 const {
   createUser,
@@ -13,6 +15,7 @@ const {
 } = require('./controllers/users');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { errorHandler } = require('./middlewares/errorhandler');
 
 const NotFoundError = require('./errors/not-found-err');
 
@@ -29,20 +32,16 @@ app.use(requestLogger); // Логгер запросов
 
 app.use(cookieParser()); // Работа с cookie
 
+app.use(helmet()); // Активируем helmet
+app.disable('x-powered-by'); // Отключаем заголовок принадлежности
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-app.use(cors({
-  origin: [
-    'https://silentvampr.nomoredomains.work',
-    'http://silentvampr.nomoredomains.work',
-    'http://localhost:3000',
-  ],
-  credentials: true,
-  methods: 'GET, PUT, PATCH, POST, DELETE',
-}));
+app.use(corsConfig);
+
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
@@ -76,17 +75,7 @@ app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? `На сервере произошла ошибка ${err}`
-        : message,
-    });
-  next();
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   // console.log('Сервер запущен на порту', PORT);

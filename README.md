@@ -13,3 +13,4 @@
 
 Бэкенд:
 - http://51.250.29.22
+- https://silent-server.nomoredomains.work
