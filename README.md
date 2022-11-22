@@ -9,7 +9,7 @@
 
 HTML, CSS, React, NodeJS, MongoDB, nginx, API
   
-*Ссылки на сайт, размещенный на Яндекс.Облаке (временно не работают, переношу на другой сервер)*
+<!--*Ссылки на сайт, размещенный на Яндекс.Облаке (временно не работают, переношу на другой сервер)*
 
 Фронтенд:
 - https://silentvampr.nomoredomains.work
@@ -18,3 +18,4 @@ HTML, CSS, React, NodeJS, MongoDB, nginx, API
 Бэкенд:
 - http://51.250.29.22
 - https://silent-server.nomoredomains.work
+-->
